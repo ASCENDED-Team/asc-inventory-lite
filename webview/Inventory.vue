@@ -2,7 +2,6 @@
     <div
         class="inventory-container flex h-screen w-screen flex-row items-center justify-center gap-10 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/90"
     >
-        <div class="absolute top-10 cursor-pointer bg-red-500 p-2 text-white" @click="closeInventory">CLOSE</div>
         <div class="mx-auto w-fit">
             <div class="grid grid-cols-5 gap-3">
                 <draggable
