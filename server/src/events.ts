@@ -10,14 +10,6 @@ const Rebar = useRebar();
 const api = await Rebar.useApi().getAsync('item-manager-api');
 const itemUsageManager = api.useItemUsageManager();
 
-alt.onClient(InventoryEvents.ToServer.CLOSE, (player: alt.Player) => {
-    const rebarPlayer = Rebar.usePlayer(player);
-
-    useWebview(player).hide('Inventory');
-    useWebview(player).unfocus();
-    rebarPlayer.world.enableControls();
-});
-
 alt.onClient(InventoryEvents.ToServer.USE_ITEM, async (player: alt.Player, item: Item) => {
     if (item.useEventName !== '' && item.data.remove === true) {
         await inventoryRemoveItem(player, item);

@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import draggable from 'vuedraggable';
 import { useLocalStorage } from '@Composables/useLocalStorage';
 import { useEvents } from '@Composables/useEvents';
@@ -130,7 +130,7 @@ const setLocalSlot = async (uid: string, slot: number) => {
     return slot;
 };
 
-const closeInventory = () => {
+const closeInventory = async () => {
     events.emitServer(InventoryEvents.ToServer.CLOSE);
 };
 
@@ -167,6 +167,11 @@ onMounted(() => {
 
     events.on(InventoryEvents.WebView.SET_ITEMS, initializeInventory);
     events.on(InventoryEvents.WebView.REFRESH_ITEMS, refreshInventory);
+    events.onKeyUp('ASC:INVENTORY:I', 73, closeInventory);
+});
+
+onUnmounted(() => {
+    events.offKeyUp('ASC:INVENTORY:I');
 });
 </script>
 

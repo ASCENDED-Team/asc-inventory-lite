@@ -11,11 +11,11 @@ const InventoryAPI = await useApi().getAsync('item-manager-api');
 
 const sessionKey = 'inventory-state';
 
-useKeybinder().on(73, (player) => {
+useKeybinder().on(73, async (player) => {
     const currentState = player.getMeta(sessionKey) ?? false;
-    const rebarPlayer = Rebar.usePlayer(player);
 
     if (!currentState) {
+        const rebarPlayer = Rebar.usePlayer(player);
         const items = InventoryAPI.usePlayerItemManager(player).get();
 
         useWebview(player).show('Inventory', 'page');
@@ -27,9 +27,16 @@ useKeybinder().on(73, (player) => {
         player.setMeta(sessionKey, true);
         return;
     }
+});
 
-    useWebview(player).hide('Inventory');
-    useWebview(player).unfocus();
-    rebarPlayer.world.enableControls();
-    player.setMeta(sessionKey, false);
+alt.onClient(InventoryEvents.ToServer.CLOSE, async (player: alt.Player) => {
+    const currentState = player.getMeta(sessionKey) ?? false;
+    if (currentState) {
+        const rebarPlayer = Rebar.usePlayer(player);
+
+        useWebview(player).hide('Inventory');
+        useWebview(player).unfocus();
+        rebarPlayer.world.enableControls();
+        player.setMeta(sessionKey, false);
+    }
 });
