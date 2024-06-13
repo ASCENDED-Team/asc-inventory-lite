@@ -10,13 +10,13 @@ async function useAscendedInventory() {
         await inventoryAddItem(player, name, quantity);
     }
 
-    async function removeItem(player: alt.Player, item: Item) {
-        await inventoryRemoveItem(player, item);
+    async function removeItem(player: alt.Player, item: Item, quantity: number) {
+        await inventoryRemoveItem(player, item, quantity);
     }
 
     return {
-        inventoryAddItem,
-        inventoryRemoveItem
+        addItem,
+        removeItem
     }
 }
 

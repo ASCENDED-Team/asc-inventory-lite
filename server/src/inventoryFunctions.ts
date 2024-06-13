@@ -29,11 +29,11 @@ export async function inventoryAddItem(player: alt.Player, name: ItemIDs, quanti
     });
 }
 
-export async function inventoryRemoveItem(player: alt.Player, item: Item) {
+export async function inventoryRemoveItem(player: alt.Player, item: Item, quantity: number) {
     const itemManager = api.useItemManager();
     const playerItemManager = api.usePlayerItemManager(player);
 
-    const didRemove = await playerItemManager.removeQuantityFrom(item.uid, 1);
+    const didRemove = await playerItemManager.removeQuantityFrom(item.uid, quantity);
 
     if (!didRemove) return;
 
