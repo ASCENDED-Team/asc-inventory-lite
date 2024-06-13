@@ -2,6 +2,7 @@
 
 ### Requirements
 
+-   Rebar v28 >
 -   Simple-Item-Manager
 -   vuedraggable@Next
 
