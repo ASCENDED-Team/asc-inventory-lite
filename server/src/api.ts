@@ -2,7 +2,7 @@ import * as alt from 'alt-server';
 
 import { useApi } from '@Server/api/index.js';
 import { ItemIDs } from 'plugins/simple-item-manager/shared/ignoreItemIds.js';
-import { inventoryAddItem, inventoryRemoveItem } from './inventoryFunctions.js';
+import { inventoryAddItem, inventoryRemoveItem, refreshInventory } from './inventoryFunctions.js';
 import { Item } from '@Plugins/simple-item-manager/shared/types.js';
 
 async function useAscendedInventory() {
@@ -14,9 +14,13 @@ async function useAscendedInventory() {
         await inventoryRemoveItem(player, item, quantity);
     }
 
+    async function refreshInventoryItems(player: alt.Player) {
+        await refreshInventory(player);
+    }
     return {
         addItem,
-        removeItem
+        removeItem,
+        refreshInventoryItems
     }
 }
 
