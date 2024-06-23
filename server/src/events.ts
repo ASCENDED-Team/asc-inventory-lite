@@ -13,13 +13,13 @@ const itemUsageManager = api.useItemUsageManager();
 alt.onClient(InventoryEvents.ToServer.USE_ITEM, async (player: alt.Player, item: Item) => {
     if (item.useEventName !== '' && item.data.remove === true) {
         await inventoryRemoveItem(player, item, 1);
-        itemUsageManager.invoke(player, item)
+        itemUsageManager.invoke(player, item);
         return;
     }
-    
-    if(item.data.remove === false) {
+
+    if (item.data.remove === false) {
         itemUsageManager.invoke(player, item);
-        return;   
+        return;
     }
 });
 
