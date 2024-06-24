@@ -29,6 +29,27 @@ export async function inventoryAddItem(player: alt.Player, name: ItemIDs, quanti
     });
 }
 
+export async function inventoryAddCustomItem(
+    player: alt.Player,
+    name: ItemIDs,
+    quantity: number,
+    data: object,
+): Promise<void> {
+    if (!quantity || quantity < 1) return;
+
+    const itemManager = api.useItemManager();
+    const playerItemManager = api.usePlayerItemManager(player);
+
+    const didAdd = await playerItemManager.add(name, quantity, data);
+
+    if (!didAdd) {
+        alt.log(`did not add item`);
+        return;
+    }
+
+    const item = itemManager.getBaseItem(name);
+}
+
 export async function inventoryRemoveItem(player: alt.Player, item: Item, quantity: number) {
     const itemManager = api.useItemManager();
     const playerItemManager = api.usePlayerItemManager(player);
